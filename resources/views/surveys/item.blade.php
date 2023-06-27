@@ -34,10 +34,6 @@
                     </div>
 
                 </div>
-                {{--                <div class="text-base font-medium leading-6"><a--}}
-                {{--                        class="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"--}}
-                {{--                        aria-label="Read &quot;New features in v1&quot;"--}}
-                {{--                        href="/blog/new-features-in-v1">Read more →</a></div>--}}
             </div>
         </div>
     </article>

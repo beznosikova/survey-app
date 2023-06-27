@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\SurveyStatus;
+use App\Http\Requests\SurveyCreateRequest;
+use App\Http\Requests\SurveyUpdateRequest;
 use App\Models\Survey;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -11,32 +14,44 @@ class SurveyController extends Controller
     public function index(): View
     {
         $surveys = Survey::all();
-        
+
         return view('surveys.index', compact('surveys'));
     }
 
     public function create(): View
     {
-        dd('create');
-        return view('surveys.index');
+        return view('surveys.forms.create');
     }
 
-    public function store(): View
+    public function store(SurveyCreateRequest $request): RedirectResponse
     {
-        dd('store');
-        return view('surveys.index');
+        $validated = $request->validated();
+        $survey = Survey::create($validated);
+
+        return redirect(route('surveys.questions', compact('survey')));
     }
 
     public function edit(Survey $survey): View
     {
-        dd('edit', $survey);
-        return view('surveys.index');
+        $statuses = SurveyStatus::cases();
+
+        return view('surveys.forms.edit', compact('survey', 'statuses'));
     }
 
-    public function update(Survey $survey): View
+    public function update(Survey $survey, SurveyUpdateRequest $request): RedirectResponse
     {
-        dd('edit', $survey);
-        return view('surveys.index');
+        $validated = $request->validated();
+
+        if ($survey->questions->isEmpty() && $request->status === SurveyStatus::READY->value) {
+            return back()->withInput()->withErrors(
+                ['status' => 'Statusu “Gotowe” nie można ustawić, badanie nie zawiera pytań']
+            );
+        }
+
+        $survey->fill($validated);
+        $survey->save();
+
+        return redirect(route('surveys.questions', compact('survey')));
     }
 
     public function destroy(Survey $survey): RedirectResponse
