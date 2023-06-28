@@ -32,7 +32,8 @@ class Survey extends Model
     protected $casts = [
         'name' => 'string',
         'status' => SurveyStatus::class,
-        'created_at' => 'datetime:Y-m-d H:i',
+        'created_at' => 'datetime:Y-m-d',
+        'updated_at' => 'datetime:Y-m-d',
     ];
 
     public function questions(): HasMany
@@ -51,6 +52,13 @@ class Survey extends Model
     {
         return Attribute::make(
             get: fn(mixed $value, array $attributes) => $attributes['status'] === SurveyStatus::TEST->value
+        );
+    }
+
+    protected function isNotReady(): Attribute
+    {
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $attributes['status'] !== SurveyStatus::READY->value
         );
     }
 }

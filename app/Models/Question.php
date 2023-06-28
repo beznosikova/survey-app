@@ -36,7 +36,8 @@ class Question extends Model
 
     protected $casts = [
         'type' => QuestionType::class,
-        'created_at' => 'datetime:Y-m-d H:i',
+        'created_at' => 'datetime:Y-m-d',
+        'updated_at' => 'datetime:Y-m-d',
     ];
 
 
