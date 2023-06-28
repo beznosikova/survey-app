@@ -30,7 +30,7 @@
     </div>
     <div class="flex items-center text-base leading-5">
         <div class="">
-            <a class="p-1 font-medium text-cyan-500 dark:text-cyan-100 sm:p-4"
+            <a class="p-1 uppercase font-medium text-cyan-500 dark:text-cyan-100 sm:p-4"
                href="{{route('surveys.create')}}">Nowe badanie</a>
         </div>
     </div>
