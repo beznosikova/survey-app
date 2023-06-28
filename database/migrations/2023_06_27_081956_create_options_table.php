@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->id();
             $table->integer('value')->nullable();
             $table->text('content');
+            $table->boolean('is_valid');
             $table->timestamps();
 
             $table->foreignId('question_id')
