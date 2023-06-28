@@ -7,6 +7,7 @@ use App\Http\Requests\SurveyCreateRequest;
 use App\Http\Requests\SurveyUpdateRequest;
 use App\Models\Survey;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class SurveyController extends Controller
@@ -59,5 +60,21 @@ class SurveyController extends Controller
         $survey->delete();
 
         return back()->with('status', 'Badanie zostało usunięte.');
+    }
+
+    public function show(Survey $survey): View
+    {
+        if ($survey->in_edition) {
+            abort(404);
+        }
+
+        return view('surveys.show', compact('survey'));
+    }
+
+    public function test(Survey $survey, Request $request): RedirectResponse
+    {
+        /* TODO: check result */
+
+        return redirect(route('surveys.index'));
     }
 }

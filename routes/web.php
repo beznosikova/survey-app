@@ -16,9 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [SurveyController::class, 'index']);
+Route::get('/', [SurveyController::class, 'index'])->name('surveys.index');
 
 Route::prefix('survey')->group(function () {
+    Route::get('/show/{survey}', [SurveyController::class, 'show'])->name('surveys.show');
+    Route::post('/show/{survey}', [SurveyController::class, 'test']);
+
     Route::get('/create', [SurveyController::class, 'create'])->name('surveys.create');
     Route::post('/create', [SurveyController::class, 'store']);
 

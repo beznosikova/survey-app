@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\SurveyStatus;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -39,8 +40,17 @@ class Survey extends Model
         return $this->hasMany(Question::class, 'survey_id')->orderBy('order');
     }
 
-//    public function scopeIsNotCanceled(Builder $query): void
-//    {
-//        $query->where('is_canceled', true);
-//    }
+    protected function inEdition(): Attribute
+    {
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $attributes['status'] === SurveyStatus::EDIT->value
+        );
+    }
+
+    protected function inTesting(): Attribute
+    {
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $attributes['status'] === SurveyStatus::TEST->value
+        );
+    }
 }

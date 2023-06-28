@@ -16,6 +16,8 @@
                         </div>
                         <div class="flex flex-wrap pt-5 items-center ">
                             <a class="mr-3 text-sm font-medium uppercase text-cyan-500 hover:text-cyan-600 dark:hover:text-cyan-400"
+                               href="{{route('surveys.show', [$survey])}}">badanie</a>
+                            <a class="mr-3 text-sm font-medium uppercase text-cyan-500 hover:text-cyan-600 dark:hover:text-cyan-400"
                                href="{{route('surveys.edit', [$survey])}}">edycja</a>
                             <form
                                 class="mr-3 text-sm font-medium text-cyan-500 hover:text-cyan-600 dark:hover:text-cyan-400"
