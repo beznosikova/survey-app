@@ -37,12 +37,23 @@ services:
         container_name: survey-nginx
         restart: unless-stopped
         ports:
-            - 8000:80
+            - 8001:80
         volumes:
             - ./:/var/www
             - ./docker-compose/nginx:/etc/nginx/conf.d
         networks:
             - survey
+
+    npm:
+        image: node:20-alpine
+        container_name: survey-npm
+        working_dir: /var/www/
+        entrypoint: [ "npm" ]
+        volumes:
+            - ./:/var/www
+        networks:
+            - survey
+        # docker-compose run --rm npm run build
 
 networks:
     survey:
